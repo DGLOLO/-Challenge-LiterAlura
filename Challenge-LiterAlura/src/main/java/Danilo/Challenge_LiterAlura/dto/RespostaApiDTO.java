@@ -1,4 +1,4 @@
-package Danilo.Challenge_LiterAlura.model;
+package Danilo.Challenge_LiterAlura.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record RespostaApi(
+public record RespostaApiDTO(
     @JsonAlias("count") Integer total,
     @JsonAlias("next") String proximaPagina,
     @JsonAlias("previous") String paginaAnterior,
-    @JsonAlias("results") List<Livro> livros
+    @JsonAlias("results") List<LivroDTO> livros
 ) {}
+

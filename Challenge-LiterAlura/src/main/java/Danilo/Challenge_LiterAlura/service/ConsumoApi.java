@@ -2,9 +2,8 @@ package Danilo.Challenge_LiterAlura.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import Danilo.Challenge_LiterAlura.model.Livro;
-import Danilo.Challenge_LiterAlura.model.RespostaApi;
+import Danilo.Challenge_LiterAlura.dto.RespostaApiDTO;
+import Danilo.Challenge_LiterAlura.dto.LivroDTO;
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,24 +37,24 @@ public class ConsumoApi {
         return response.body();
     }
 
-    public RespostaApi obterDadosMapeados(String endereco) {
+    public RespostaApiDTO obterDadosMapeados(String endereco) {
         String json = obterDados(endereco);
         try {
-            return objectMapper.readValue(json, RespostaApi.class);
+            return objectMapper.readValue(json, RespostaApiDTO.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Erro ao processar JSON: " + e.getMessage(), e);
         }
     }
 
-    public List<Livro> obterListaLivros(String endereco) {
-        RespostaApi resposta = obterDadosMapeados(endereco);
+    public List<LivroDTO> obterListaLivros(String endereco) {
+        RespostaApiDTO resposta = obterDadosMapeados(endereco);
         return resposta.livros();
     }
 
-    public Livro obterLivro(String endereco) {
+    public LivroDTO obterLivro(String endereco) {
         String json = obterDados(endereco);
         try {
-            return objectMapper.readValue(json, Livro.class);
+            return objectMapper.readValue(json, LivroDTO.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Erro ao processar JSON do livro: " + e.getMessage(), e);
         }

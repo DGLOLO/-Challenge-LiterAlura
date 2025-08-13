@@ -1,192 +1,247 @@
-# Challenge LiterAlura - Consumindo a API Gutendex
+# 📚 Challenge LiterAlura
 
-Este projeto implementa um cliente Java para consumir a API Gutendex, que fornece acesso ao catálogo de mais de 70 mil livros do Project Gutenberg.
+## 🎯 Descrição do Projeto
+
+O **Challenge LiterAlura** é uma aplicação Java Spring Boot que consome a API pública [Gutendex](https://gutendex.com/) para buscar e gerenciar informações sobre livros e autores. O projeto demonstra o uso de tecnologias modernas de desenvolvimento Java, incluindo Spring Data JPA, banco de dados H2, e consumo de APIs REST.
 
 ## 🚀 Funcionalidades Implementadas
 
-### 1. **HttpClient** - Cliente para Requisições
-- Configuração robusta do cliente HTTP
-- Suporte a redirecionamentos
-- Headers personalizados (Accept, User-Agent)
-- Tratamento de erros HTTP
+### 🔍 Busca e Consulta na API
+- **Busca de livros por título** - Pesquisa livros na API Gutendex
+- **Listagem de livros mais populares** - Ordenados por número de downloads
+- **Busca por idioma** - Filtra livros por código de idioma (en, es, fr, pt)
+- **Busca por autor** - Encontra livros de autores específicos
+- **Estatísticas da API** - Informações sobre total de livros e distribuição por idioma
 
-### 2. **HttpRequest** - Construção de Solicitações
-- Configuração de parâmetros de busca
-- Headers customizados para APIs REST
-- Suporte a diferentes tipos de requisição
+### 💾 Persistência de Dados
+- **Banco de dados H2** - Armazenamento em memória com console web
+- **Entidades JPA** - Modelagem de Livro e Autor com relacionamentos
+- **Repositórios Spring Data** - Queries personalizadas e derived queries
+- **Salvamento de livros** - Conversão de DTOs para entidades e persistência
 
-### 3. **HttpResponse** - Gerenciamento de Respostas
-- Tratamento de códigos de status HTTP
-- Extração do corpo da resposta (JSON)
-- Validação de respostas bem-sucedidas
-
-### 4. **Jackson 2.16** - Análise Avançada de JSON
-- **JsonNode** para navegação flexível
-- **Path expressions** para extração precisa
-- **Filtros avançados** por critérios
-- **Ordenação dinâmica** de resultados
-- **Validação de estrutura** JSON
-- **Estatísticas detalhadas** dos dados
-- **Conversão bidirecional** JsonNode ↔ Objeto
-
-### 5. **Persistência com PostgreSQL** - Banco de Dados
-- **JPA/Hibernate** para mapeamento objeto-relacional
-- **Repositórios Spring Data** para operações CRUD
-- **Relacionamentos** entre Livros e Autores
-- **Consultas personalizadas** com JPQL
-- **Transações** para integridade dos dados
-
-### 6. **Interface de Usuário** - Menu Interativo
-- **CommandLineRunner** para execução automática
-- **Menu numerado** com 9 opções principais
-- **Validação de entrada** do usuário
-- **Tratamento de erros** robusto
-- **Scanner** para captura de dados
-
-## 🏗️ Arquitetura do Sistema
-
-```
-src/main/java/Danilo/Challenge_LiterAlura/
-├── model/                          # Modelos de dados
-│   ├── Livro.java                 # Entidade principal do livro
-│   ├── Autor.java                 # Informações do autor
-│   └── Formatos.java              # Formatos disponíveis
-├── service/                        # Camada de serviços
-│   ├── ConsumoApi.java            # Cliente HTTP
-│   ├── ConverteDados.java         # Conversor JSON
-│   ├── IConverteDados.java        # Interface do conversor
-│   ├── LivroService.java          # Lógica de negócio
-│   ├── JsonAnalyserService.java   # Análise avançada de JSON
-│   ├── PersistenciaService.java   # Persistência de dados
-│   └── CatalogoService.java       # Serviço principal integrado
-├── repository/                     # Camada de persistência
-│   ├── LivroRepository.java       # Repositório de livros
-│   └── AutorRepository.java       # Repositório de autores
-├── interface/                      # Interface de usuário
-│   └── InterfaceUsuario.java      # Menu interativo
-└── ChallengeLiterAluraApplication.java
-```
-
-## 📚 Operações Disponíveis
-
-### **API e Conversão**
-```java
-// Busca por título
-List<Livro> livros = livroService.buscarLivrosPorTitulo("Dom Quixote");
-
-// Busca por autor
-List<Livro> livros = livroService.buscarLivrosPorAutor("Machado de Assis");
-
-// Análise avançada de JSON
-String titulo = jsonAnalyser.extractValue(json, "results[0].title");
-String filtrado = jsonAnalyser.filterBooksByCriteria(json, "title", "Quixote");
-```
-
-### **Persistência e Consultas**
-```java
-// Salvar livro na base
-Livro livro = catalogoService.buscarESalvarLivro("Dom Quixote");
-
-// Consultas no banco
-List<Livro> livros = catalogoService.listarLivrosSalvos();
-List<Autor> autores = catalogoService.listarAutores();
-Long quantidade = catalogoService.contarLivrosPorIdioma("pt");
-```
-
-### **Funcionalidades Avançadas**
-```java
-// Autores vivos em um ano
-List<Autor> autores = catalogoService.buscarAutoresVivosEmAno(1900);
-
-// Estatísticas do catálogo
-String stats = catalogoService.obterEstatisticas();
-
-// Livros por downloads
-List<Livro> populares = catalogoService.listarLivrosPorDownloads();
-```
+### 📊 Estatísticas e Relatórios
+- **Contagem por idioma** - Quantidade de livros em cada idioma
+- **Top livros mais baixados** - Ranking dos livros mais populares
+- **Autores vivos em determinado ano** - Consulta histórica por período
+- **Estatísticas do banco local** - Resumo completo dos dados salvos
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Java 17** - Linguagem principal
-- **Spring Boot 3.5.4** - Framework base
-- **HttpClient** - Cliente HTTP nativo do Java
-- **Jackson** - Processamento de JSON
-- **Maven** - Gerenciamento de dependências
+### Backend
+- **Java 17+** - Linguagem de programação
+- **Spring Boot 3.5.4** - Framework principal
+- **Spring Data JPA** - Persistência de dados
+- **Hibernate** - ORM (Object-Relational Mapping)
+- **H2 Database** - Banco de dados em memória
+
+### Dependências
+- **Jackson** - Serialização/deserialização JSON
+- **Spring Boot Starter Web** - Aplicação web
+- **Spring Boot Starter Data JPA** - Persistência de dados
+- **H2 Database** - Banco de dados
+
+## 🏗️ Arquitetura do Projeto
+
+### Estrutura de Pacotes
+```
+src/main/java/Danilo/Challenge_LiterAlura/
+├── ChallengeLiterAluraApplication.java    # Classe principal
+├── dto/                                  # Data Transfer Objects
+│   ├── RespostaApiDTO.java              # Resposta da API
+│   ├── LivroDTO.java                    # DTO do livro
+│   ├── AutorDTO.java                    # DTO do autor
+│   └── FormatosDTO.java                 # DTO dos formatos
+├── model/                                # Entidades JPA
+│   ├── Livro.java                       # Entidade Livro
+│   └── Autor.java                       # Entidade Autor
+├── repository/                           # Repositórios JPA
+│   ├── LivroRepository.java             # Repositório de livros
+│   └── AutorRepository.java             # Repositório de autores
+└── service/                              # Serviços de negócio
+    ├── ConsumoApi.java                  # Consumo da API externa
+    └── LivroService.java                # Lógica de negócio
+```
+
+### Padrões de Design
+- **DTO Pattern** - Separação entre dados da API e entidades do banco
+- **Repository Pattern** - Abstração da camada de persistência
+- **Service Layer** - Lógica de negócio centralizada
+- **Command Line Runner** - Interface de usuário via console
 
 ## 🚀 Como Executar
 
 ### Pré-requisitos
 - Java 17 ou superior
 - Maven 3.6+
-- PostgreSQL instalado e configurado
+- Conexão com internet (para consumir a API)
 
-### Configuração do Banco
-1. Crie um banco PostgreSQL chamado `liter_alura`
-2. Configure usuário e senha no `application.properties`
-3. Ou ajuste as configurações conforme seu ambiente
+### Passos para Execução
 
-### Execução
+1. **Clone o repositório**
 ```bash
-# Compilar o projeto
-mvn clean compile
-
-# Executar a aplicação principal (com interface)
-mvn spring-boot:run
-
-# Executar demonstrações específicas (se necessário)
-# mvn exec:java -Dexec.mainClass="Danilo.Challenge_LiterAlura.JacksonDemo"
-
-# Ou executar via IDE
-# Execute ChallengeLiterAluraApplication.java para a aplicação completa
+git clone <url-do-repositorio>
+cd Challenge-LiterAlura
 ```
 
-## 📖 Exemplo de Uso
-
-```java
-// Inicializar serviços
-ConsumoApi consumoApi = new ConsumoApi();
-ConverteDados conversor = new ConverteDados();
-LivroService livroService = new LivroService(consumoApi, conversor);
-
-// Buscar livros
-List<Livro> livros = livroService.buscarLivrosPorTitulo("Dom Quixote");
-livros.forEach(livro -> {
-    System.out.println("Título: " + livro.getTitulo());
-    System.out.println("Downloads: " + livro.getDownloads());
-});
+2. **Compile o projeto**
+```bash
+./mvnw.cmd clean compile
 ```
 
-## 🔧 Configurações da API
+3. **Execute a aplicação**
+```bash
+./mvnw.cmd spring-boot:run
+```
 
-- **URL Base**: `https://gutendex.com/books/`
+4. **Acesse o console H2** (opcional)
+```
+URL: http://localhost:8081/h2-console
+JDBC URL: jdbc:h2:mem:liter_alura
+Username: sa
+Password: (deixe em branco)
+```
+
+## 📱 Como Usar
+
+### Menu Principal
+A aplicação apresenta um menu interativo com as seguintes opções:
+
+1. **Buscar livros por título (API)** - Pesquisa livros na API externa
+2. **Listar livros mais populares (API)** - Top livros por downloads
+3. **Buscar livros por idioma (API)** - Filtra por idioma
+4. **Buscar livros por autor (API)** - Encontra livros de autores específicos
+5. **Mostrar estatísticas da API** - Resumo dos dados da API
+6. **Salvar livros da API no banco local** - Persiste dados no banco
+7. **Estatísticas do banco local** - Informações dos dados salvos
+8. **Buscar livros no banco local** - Consultas locais
+9. **Buscar autores vivos em determinado ano** - Consulta histórica
+0. **Sair** - Encerra a aplicação
+
+### Exemplos de Uso
+
+#### Buscar Livros por Título
+```
+Escolha uma opção: 1
+Digite o título ou parte do título: Moby Dick
+```
+
+#### Salvar Livros no Banco
+```
+Escolha uma opção: 6
+Quantos livros deseja salvar? (1-20): 10
+```
+
+#### Consultar Autores Vivos
+```
+Escolha uma opção: 9
+Digite o ano: 1850
+```
+
+## 🗄️ Modelo de Dados
+
+### Entidade Livro
+- **id** - Identificador único (auto-gerado)
+- **titulo** - Título do livro
+- **autor** - Relacionamento com Autor (ManyToOne)
+- **idiomas** - Lista de idiomas disponíveis
+- **downloads** - Número de downloads
+- **apiId** - ID original da API externa
+
+### Entidade Autor
+- **id** - Identificador único (auto-gerado)
+- **nome** - Nome do autor
+- **anoNascimento** - Ano de nascimento
+- **anoFalecimento** - Ano de falecimento (pode ser null)
+- **livros** - Lista de livros do autor (OneToMany)
+
+## 🔧 Configurações
+
+### application.properties
+```properties
+# Configurações do banco H2
+spring.datasource.url=jdbc:h2:mem:liter_alura
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Configurações JPA
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+
+# Porta da aplicação
+server.port=8081
+```
+
+## 📊 API Externa
+
+### Gutendex API
+- **URL Base**: https://gutendex.com/books/
 - **Formato**: JSON
-- **Rate Limiting**: Sem limitações conhecidas
-- **Suporte**: CORS habilitado
+- **Autenticação**: Não requerida
+- **Rate Limit**: Não especificado
 
-## 📝 Estrutura dos Dados
+### Estrutura da Resposta
+```json
+{
+  "count": 76493,
+  "next": "https://gutendex.com/books/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 2701,
+      "title": "Moby Dick; Or, The Whale",
+      "authors": [...],
+      "languages": ["en"],
+      "download_count": 115502,
+      "formats": {...}
+    }
+  ]
+}
+```
 
-### Livro
-- ID único
-- Título
-- Lista de autores
-- Idiomas disponíveis
-- Contador de downloads
-- Formatos disponíveis (HTML, EPUB, PDF, etc.)
+## 🧪 Testes e Validações
 
-### Autor
-- Nome
-- Ano de nascimento
-- Ano de falecimento
+### Validações Implementadas
+- **Ano válido** - Entre 1000 e 2100 para consultas históricas
+- **Quantidade de livros** - Entre 1 e 20 para salvamento
+- **Entrada numérica** - Validação de tipos de entrada
+- **Tratamento de erros** - Try-catch em todas as operações
 
-## 🎯 Próximos Passos
+### Tratamento de Exceções
+- **NumberFormatException** - Entrada inválida
+- **IOException** - Problemas de conexão com API
+- **JsonProcessingException** - Erro no processamento JSON
+- **RuntimeException** - Erros gerais da aplicação
 
-1. **Persistência**: Implementar banco de dados
-2. **Cache**: Adicionar cache para requisições
-3. **Validação**: Implementar validação de dados
-4. **Testes**: Adicionar testes unitários
-5. **API REST**: Criar endpoints REST
-6. **Interface Web**: Desenvolver interface gráfica
+## 🎯 Objetivos do Desafio
 
-## 📄 Licença
+Este projeto foi desenvolvido para demonstrar:
 
-Este projeto é parte do Challenge LiterAlura da Alura. 
+1. **Consumo de APIs REST** - Integração com serviços externos
+2. **Persistência de dados** - Uso de JPA e banco de dados
+3. **Arquitetura limpa** - Separação de responsabilidades
+4. **Tratamento de erros** - Robustez da aplicação
+5. **Interface de usuário** - Menu interativo via console
+6. **Queries personalizadas** - Uso de JPQL e derived queries
+7. **Streams Java** - Processamento funcional de dados
+8. **Relacionamentos JPA** - Mapeamento objeto-relacional
+
+## 🚀 Melhorias Futuras
+
+- **Interface web** - Substituir console por interface gráfica
+- **Cache Redis** - Melhorar performance de consultas
+- **Testes unitários** - Cobertura de testes
+- **Documentação API** - Swagger/OpenAPI
+- **Logs estruturados** - Logback com JSON
+- **Métricas** - Actuator e Prometheus
+- **Docker** - Containerização da aplicação
+
+## 👨‍💻 Desenvolvedor
+
+**Danilo** - Desenvolvedor Java Full Stack
+
+
+---
+
+**⭐ Se este projeto foi útil, considere dar uma estrela!** 
