@@ -1,22 +1,13 @@
 -- Script de inicialização do banco de dados Liter Alura
--- Execute este script no PostgreSQL para criar o banco
-
--- Criar o banco de dados (execute como superusuário)
--- CREATE DATABASE liter_alura;
-
--- Conectar ao banco liter_alura
--- \c liter_alura;
+-- Banco H2 (em memória) - não requer instalação externa
 
 -- Comentário: As tabelas serão criadas automaticamente pelo Hibernate
--- com a configuração spring.jpa.hibernate.ddl-auto=update
+-- com a configuração spring.jpa.hibernate.ddl-auto=create-drop
 
--- Verificar se as tabelas foram criadas
--- \dt
-
--- Verificar estrutura das tabelas
--- \d livros
--- \d autores
--- \d livro_idiomas
+-- Para acessar o console H2: http://localhost:8080/h2-console
+-- JDBC URL: jdbc:h2:mem:liter_alura
+-- Username: sa
+-- Password: (deixe em branco)
 
 -- Exemplo de consultas úteis para teste:
 
